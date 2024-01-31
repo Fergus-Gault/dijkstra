@@ -1,5 +1,6 @@
 import pygame
 import main
+import src.lines as lines
 
 class Node(pygame.sprite.Sprite):
     def __init__(self, posx, posy, rad, label):
@@ -11,6 +12,12 @@ class Node(pygame.sprite.Sprite):
         self.radius = rad
         self.label = label
         self.font = pygame.font.SysFont('Comic Sans MS', 30)
+    
+    def update(self, events):
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                if self.rect.collidepoint(event.pos):
+                    drawLine(self)
         
     def _remove_node(self):
         main.all_nodes.remove(self) # Removes node
@@ -36,3 +43,11 @@ class Node(pygame.sprite.Sprite):
     def __repr__(self):
         return f"{self.label}"
         
+def drawLine(node):
+    if len(lines.current_line) == 1:
+        newLine = lines.Line(lines.current_line[0], node)
+        newLine._draw_line()
+        lines.current_line = []
+    else:
+        lines.current_line.append(node)
+    
