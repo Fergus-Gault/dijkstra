@@ -36,8 +36,13 @@ def update():
                     newNode._remove_node()
                 break
 
-        # Update the display outside of the event loop
+        # Update sprites before handling events
         all_nodes.update(events)
+
+        # Draw the entire sprite group onto main.SCREEN
+        all_nodes.draw(SCREEN)
+
+        # Update the display outside of the event loop
         pygame.display.flip()
         CLOCK.tick(30)
             
