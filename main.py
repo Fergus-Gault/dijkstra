@@ -1,7 +1,5 @@
 import pygame
-import nodes
-import math
-import dijkstra
+import src.nodes as nodes
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
@@ -24,14 +22,13 @@ def update():
                 running = False
                 break
             if event.type == pygame.MOUSEBUTTONDOWN:
-                
                 newNode = nodes.Node(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1], CIRC_RAD, len(all_nodes.sprites()))
-
                 # Check for collisions without removing sprites
                 collide = pygame.sprite.spritecollide(newNode, all_nodes, dokill=False)
-
                 # If there are no collisions, draw the node
+                print("We are here")
                 if not collide:
+                    print("We here")
                     newNode._draw_node()
                     # Add the new node to the group
                     all_nodes.add(newNode)
@@ -46,9 +43,9 @@ def update():
             
     pygame.quit()
 
-def main():
+def display():
     pygame.init()
     update()
 
 if __name__ == "__main__":
-    main()
+    display()
